@@ -1,8 +1,8 @@
 package initializers
 
 import (
-	"example/testapp/models"
 	"log"
+	"testapp/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

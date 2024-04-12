@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"example/testapp/initializers"
-	"example/testapp/models"
 	"fmt"
+	initializers "testapp/database"
+	"testapp/models"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -85,20 +85,40 @@ func GetSynonyms(c *fiber.Ctx) error {
 	}
 	fmt.Print(word)
 	// Define a slice to hold the synonyms
-	var synonyms []models.Word
+	var synonyms []models.SearchResult
 
 	// Perform a raw SQL query to fetch synonyms of the word
 	rows, err := initializers.DB.Db.Raw(`
-
-	select * from words w 
-	where w.id in (
-	select word_id2 from synonyms s 
-		where s.word_id1 = (	
-		select s2.word_id1  from synonyms s2 
-		where s2.word_id2 = ?
+	WITH RECURSIVE rcte AS (
+		select distinct  s.word_id1, s.word_id2, 1 AS level
+		FROM words w 
+		JOIN synonyms s ON w.id = s.word_id2 or w.id = s.word_id1
+		WHERE w.id in (
+			SELECT DISTINCT s.word_id2
+			FROM synonyms s 
+			JOIN words w ON w.id = s.word_id2 or w.id = s.word_id1
+			WHERE w.term = ?
+			union 
+			SELECT DISTINCT s.word_id1
+			FROM synonyms s 
+			JOIN words w ON w.id = s.word_id2 or w.id = s.word_id1
+			WHERE w.term = ?
 		)
-	) and w.term != ?
-    `, word.ID, searchTerm).Rows()
+		
+		UNION ALL
+		
+		SELECT  s.word_id1, s.word_id2, rcte.level + 1
+		FROM rcte
+		JOIN synonyms s ON s.word_id2 = rcte.word_id2 or s.word_id1 = rcte.word_id1 or s.word_id1 = rcte.word_id2 or s.word_id2 = s.word_id1
+	
+		WHERE rcte.level < 2 -- Specify the maximum recursion depth (adjust as needed)
+	)
+	select distinct w.*, min(rcte.level) as level
+	FROM rcte 
+	JOIN words w ON w.id = rcte.word_id2 or w.id = rcte.word_id1
+	where w.term != ?
+	group by w.id,  w.term;
+    `, searchTerm, searchTerm, searchTerm).Rows()
 
 	// Check for errors during the query
 	if err != nil {
@@ -109,7 +129,7 @@ func GetSynonyms(c *fiber.Ctx) error {
 
 	// Iterate over the rows and scan them into the slice
 	for rows.Next() {
-		var synonym models.Word
+		var synonym models.SearchResult
 		initializers.DB.Db.ScanRows(rows, &synonym)
 		synonyms = append(synonyms, synonym)
 	}

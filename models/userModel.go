@@ -19,3 +19,9 @@ type Synonym struct {
 	Word_id1 int16 `json:"word_id1"`
 	Word_id2 int16 `json:"word_id2"`
 }
+
+type SearchResult struct {
+	ID    int16  `json:"id"`
+	Term  string `json:"term"`
+	Level int16  `json:"level"`
+}

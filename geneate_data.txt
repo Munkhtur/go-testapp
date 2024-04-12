@@ -1,0 +1,50 @@
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(10, 2, 3, 1, NULL, NULL, NULL);
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(11, 2, 4, 1, NULL, NULL, NULL);
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(13, 4, 5, 1, NULL, NULL, NULL);
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(14, 1, 6, 1, NULL, NULL, NULL);
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(18, 4, 7, NULL, NULL, NULL, NULL);
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(19, 5, 8, NULL, NULL, NULL, NULL);
+INSERT INTO public.synonyms
+(id, word_id1, word_id2, ren_level, created_at, updated_at, deleted_at)
+VALUES(20, 5, 9, NULL, NULL, NULL, NULL);
+
+
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(1, 'alter', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(2, 'decorate', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(3, 'adorn', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(4, 'bedeck', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(5, 'brighten', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(6, 'affect', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(7, 'embellish', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(8, 'clear up', NULL, NULL, NULL);
+INSERT INTO public.words
+(id, term, created_at, updated_at, deleted_at)
+VALUES(9, 'enliven', NULL, NULL, NULL);

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"example/testapp/controllers"
-	"example/testapp/initializers"
 	"fmt"
 	"log"
+	"testapp/controllers"
+	initializers "testapp/database"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
